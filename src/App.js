@@ -58,10 +58,11 @@ const Read = () => {
                  rate={tables.rate}
                  checkIn = {tables.checkIn}
                  checkOut = {tables.checkOut}
-
+const barItems = {tables.bar.fanta}
 
                  />
           ))
+          
       }
       </div>
 
@@ -74,8 +75,8 @@ const Read = () => {
 
 
 // Define how each display entry will be structured
-const Frame = ({checkOut , checkIn , tableNumber, rate, tableType}) => {
-  console.log(checkOut + " " + checkIn + " " + tableNumber + " " + tableType + " " + rate );
+const Frame = ({checkOut , checkIn , tableNumber, rate, tableType, barItems}) => {
+  console.log(checkOut + " " + checkIn + " " + tableNumber + " " + tableType + " " + rate + "" + barItems );
   return (
       <center>
           <div className="div">
@@ -89,7 +90,7 @@ const Frame = ({checkOut , checkIn , tableNumber, rate, tableType}) => {
 <p>Checked in : {checkIn}</p>
 <p>Checked out : {checkOut}</p>
 <p>Rate : {rate}</p>
-
+<p>Rate : {barItems}</p>
 
           </div>
       </center>
