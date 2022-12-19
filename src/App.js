@@ -4,6 +4,15 @@ import { initializeApp } from "firebase/app";
 import { getFirestore, collection, getDocs } from 'firebase/firestore'
 import firebase from 'firebase';
 import React, { useState } from 'react';
+import Box from '@mui/material/Box';
+import Card from '@mui/material/Card';
+import CardActions from '@mui/material/CardActions';
+import CardContent from '@mui/material/CardContent';
+import Button from '@mui/material/Button';
+import Typography from '@mui/material/Typography';
+import PoolTable from './PoolTable';
+
+
 // Your web app's Firebase configuration
 const firebaseConfig = {
   apiKey: "AIzaSyBsZh12ElY0uNfEdVwkLkYiFfcxSQ7GDPU",
@@ -14,90 +23,27 @@ const firebaseConfig = {
   appId: "1:793771079245:web:522e27636f281e08730e04"
 };
 
-// Initialize Firebase
+
+
+
 
 firebase.initializeApp(firebaseConfig);
- 
-const Read = () => {
+var db = firebase.firestore();
+export default function App  ()  {
   
-  
-  var db = firebase.firestore();
-  const [info , setInfo] = useState([]);
-
-  // Start the fetch operation as soon as
-  // the page loads
-  window.addEventListener('load', () => {
-      Fetchdata();
-    });
-
-  // Fetch the required data using the get() method
-  const Fetchdata = ()=>{
-      db.collection("tables").get().then((querySnapshot) => {
-          
-          // Loop through the data and store
-          // it in array to display
-          querySnapshot.forEach(element => {
-              var tables = element.data();
-              setInfo(arr => [...arr , tables]);
-               
-          });
-      })
-  }
-   
-  // Display the result on the page
   return (
-      <div>
-          <center>
-          <h2>Active Tables</h2>
-          </center>
-       
-      {
-          info.map((tables) => (
-          <Frame tableNumber={tables.tableNumber}
-                 tableType={tables.tableNumber}
-                 rate={tables.rate}
-                 checkIn = {tables.checkIn}
-                 checkOut = {tables.checkOut}
-const barItems = {tables.bar.fanta}
-
-                 />
-          ))
-          
-      }
-      </div>
-
-  );
-}
-
-
-
-
-
-
-// Define how each display entry will be structured
-const Frame = ({checkOut , checkIn , tableNumber, rate, tableType, barItems}) => {
-  console.log(checkOut + " " + checkIn + " " + tableNumber + " " + tableType + " " + rate + "" + barItems );
-  return (
+    <div>
       <center>
-          <div className="div">
-               
-<p>Number : {tableNumber}</p>
-
-               
-<p>Type : {tableType}</p>
-
-               
-<p>Checked in : {checkIn}</p>
-<p>Checked out : {checkOut}</p>
-<p>Rate : {rate}</p>
-<p>Rate : {barItems}</p>
-
-          </div>
+        <h2>Active Tables</h2>
       </center>
+      <PoolTable number = {"5"} />
+      <PoolTable number = {"4"} />
+    </div>
   );
-}
+};
 
-export default Read;
+
+
 
      
 
