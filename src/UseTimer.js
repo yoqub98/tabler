@@ -1,10 +1,11 @@
 import { useState, useRef } from 'react';
-
+import {formatTime} from './Utils'
 
 const useTimer = (initialState = 0) => {
   const [timer, setTimer] = useState(initialState)
   const [isActive, setIsActive] = useState(false)
   const [isPaused, setIsPaused] = useState(false)
+  const [checkOutTime, setCheckoutTime] = useState("____")
   const countRef = useRef(null)
 
   const handleStart = () => {
@@ -13,11 +14,17 @@ const useTimer = (initialState = 0) => {
     countRef.current = setInterval(() => {
       setTimer((timer) => timer + 1)
     }, 1000)
+    setCheckoutTime (formatTime(timer))
+    
   }
 
   const handlePause = () => {
+    setCheckoutTime (formatTime(timer))
     clearInterval(countRef.current)
     setIsPaused(false)
+    
+    
+   
   }
 
   const handleResume = () => {
@@ -30,11 +37,11 @@ const useTimer = (initialState = 0) => {
   const handleReset = () => {
     clearInterval(countRef.current)
     setIsActive(false)
-    setIsPaused(false)
+    setIsPaused(true)
     setTimer(0)
   }
 
-  return { timer, isActive, isPaused, handleStart, handlePause, handleResume, handleReset }
+  return { timer, isActive, isPaused, checkOutTime, handleStart, handlePause, handleResume, handleReset, }
 }
 
 export default useTimer

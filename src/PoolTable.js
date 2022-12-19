@@ -33,7 +33,8 @@ const PoolTableData = {
 
 const Table  = ({number}) => {
   
-  const { timer, isActive, isPaused, handleStart, handlePause, handleResume, handleReset } = useTimer(0)
+  const { timer, isActive, isPaused, checkOutTime, handleStart, handlePause, handleResume, handleReset,  } = useTimer(0)
+  
   
  return (
   <React.Fragment>
@@ -47,10 +48,10 @@ const Table  = ({number}) => {
       <Typography sx={{ mb: 1.5 }} color="text.secondary">
      Rate : {PoolTableData.rate}
       </Typography>
-      <Typography variant="body2">
-      <p>{formatTime(timer)}</p>
+      <Typography variant="body1">
+      <p>Timer : {formatTime(timer)}</p>
         <br />
-        {'"a benevolent smile"'}
+      Checked out :  {checkOutTime}
       </Typography>
     </CardContent>
     <CardActions>
@@ -65,7 +66,9 @@ const Table  = ({number}) => {
     <Button variant="outlined"  color="error"  size="small"
     onClick={() => {
      handleReset();
-      handlePause();
+     handlePause();
+   
+      
     }}
     >Check Out</Button>
              
