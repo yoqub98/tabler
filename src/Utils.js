@@ -6,3 +6,4 @@ export const formatTime = (timer) => {
   
     return `${getHours} : ${getMinutes} : ${getSeconds}`
   }
+

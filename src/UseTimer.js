@@ -5,7 +5,7 @@ const useTimer = (initialState = 0) => {
   const [timer, setTimer] = useState(initialState)
   const [isActive, setIsActive] = useState(false)
   const [isPaused, setIsPaused] = useState(false)
-  const [checkOutTime, setCheckoutTime] = useState("____")
+  const [checkOutTime, setCheckoutTime] = useState("0")
   const countRef = useRef(null)
 
   const handleStart = () => {
@@ -14,12 +14,12 @@ const useTimer = (initialState = 0) => {
     countRef.current = setInterval(() => {
       setTimer((timer) => timer + 1)
     }, 1000)
-    setCheckoutTime (formatTime(timer))
+    setCheckoutTime ((timer))
     
   }
 
   const handlePause = () => {
-    setCheckoutTime (formatTime(timer))
+    setCheckoutTime ((timer))
     clearInterval(countRef.current)
     setIsPaused(false)
     

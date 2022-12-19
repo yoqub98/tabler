@@ -24,34 +24,41 @@ const bull = (
     •
   </Box>
 );
-const PoolTableData = {
-  tableType : "Pool Table",
-  tableNumber : "5" ,
-  rate : 15000,
-  checkIn : "NaN"
-}
+
 
 const Table  = ({number}) => {
   
-  const { timer, isActive, isPaused, checkOutTime, handleStart, handlePause, handleResume, handleReset,  } = useTimer(0)
+  const { timer, isActive, isPaused, checkOutTime, handleStart, handlePause, handleResume, handleReset,  } = useTimer(0);
+ 
+    const [checkInTime, setCheckinTime] = useState("00:00:00")
+    const [usedTime, setUsedTime] = useState("0")
+    const [rate, setRate] = useState("16000")
+    const tableType = "Pool Table" ;
+      
+   
+
   
-  
+ 
+
+ 
+
  return (
+  
   <React.Fragment>
     <CardContent>
       <Typography sx={{ fontSize: 14 }} color="text.secondary" gutterBottom>
     Table number :  {number}
       </Typography>
       <Typography variant="h4" component="div">
-      {PoolTableData.tableType}
+      {tableType}
       </Typography>
       <Typography sx={{ mb: 1.5 }} color="text.secondary">
-     Rate : {PoolTableData.rate}
+     Rate : {rate}
       </Typography>
       <Typography variant="body1">
       <p>Timer : {formatTime(timer)}</p>
         <br />
-      Checked out :  {checkOutTime}
+      Checked out :  {formatTime(checkOutTime)}
       </Typography>
     </CardContent>
     <CardActions>
@@ -67,7 +74,8 @@ const Table  = ({number}) => {
     onClick={() => {
      handleReset();
      handlePause();
-   
+    setUsedTime(checkOutTime)
+    console.log(rate,tableType,formatTime(usedTime))
       
     }}
     >Check Out</Button>
