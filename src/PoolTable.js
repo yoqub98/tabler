@@ -32,7 +32,7 @@ const Table  = ({number}) => {
   const { timer, isActive, isPaused, checkOutTime, handleStart, handlePause, handleResume, handleReset,  } = useTimer(0);
  
     const [checkInTime, setCheckinTime] = useState("00:00:00")
-    const [usedTime, setUsedTime] = useState(checkOutTime)
+    const [usedTime, setUsedTime] = useState(timer)
     const [rate, setRate] = useState("16000")
     const tableType = "Pool Table" ;
       
@@ -77,7 +77,7 @@ const Table  = ({number}) => {
     onClick={() => {
      handleReset();
      handlePause();
-     setUsedTime(checkOutTime)
+     setUsedTime(timer)
    PostData();
     
       
