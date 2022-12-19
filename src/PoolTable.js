@@ -26,16 +26,19 @@ const bull = (
 );
 
 
+
 const Table  = ({number}) => {
   
   const { timer, isActive, isPaused, checkOutTime, handleStart, handlePause, handleResume, handleReset,  } = useTimer(0);
  
     const [checkInTime, setCheckinTime] = useState("00:00:00")
-    const [usedTime, setUsedTime] = useState("0")
+    const [usedTime, setUsedTime] = useState(checkOutTime)
     const [rate, setRate] = useState("16000")
     const tableType = "Pool Table" ;
       
-   
+    function PostData  ()  {
+      console.log(usedTime,rate,tableType);
+    }   
 
   
  
@@ -74,8 +77,9 @@ const Table  = ({number}) => {
     onClick={() => {
      handleReset();
      handlePause();
-    setUsedTime(checkOutTime)
-    console.log(rate,tableType,formatTime(usedTime))
+     setUsedTime(checkOutTime)
+   PostData();
+    
       
     }}
     >Check Out</Button>
