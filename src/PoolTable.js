@@ -16,14 +16,7 @@ const element = <FontAwesomeIcon icon={faClock} />
 
 
 
-const bull = (
-  <Box
-    component="span"
-    sx={{ display: 'inline-block', mx: '2px', transform: 'scale(0.8)' }}
-  >
-    •
-  </Box>
-);
+
 
 
 
@@ -32,12 +25,13 @@ const Table  = ({number}) => {
   const { timer, isActive, isPaused, checkOutTime, handleStart, handlePause, handleResume, handleReset,  } = useTimer(0);
  
     const [checkInTime, setCheckinTime] = useState("00:00:00")
+    const [finishTime, setFinishTime] = useState("00:00:00")
     const [usedTime, setUsedTime] = useState(timer)
     const [rate, setRate] = useState("16000")
     const tableType = "Pool Table" ;
       
     function PostData  ()  {
-      console.log(usedTime,rate,tableType);
+      console.log(checkInTime,finishTime, usedTime,rate,tableType);// MVP
     }   
 
   
@@ -59,6 +53,10 @@ const Table  = ({number}) => {
      Rate : {rate}
       </Typography>
       <Typography variant="body1">
+      
+      Checked in :  {checkInTime}
+      </Typography>
+      <Typography variant="body1">
       <p>Timer : {formatTime(timer)}</p>
         <br />
       Checked out :  {formatTime(checkOutTime)}
@@ -68,16 +66,19 @@ const Table  = ({number}) => {
      
     </CardActions>
     <CardActions>
-    <Button variant="outlined" size="small"
+    <Button variant="outlined" size="small" ///// CHECKIN FUNCTION
     onClick={() => {
       handleStart()
+      /// ASSIGN CURRENT TIME TO checkInTime variable ( use setCheckinTime(Current time) )
     }}
     >Check In</Button>
-    <Button variant="outlined"  color="error"  size="small"
+
+    <Button variant="outlined"  color="error"  size="small" ///// CHECKOUT FUNCTION
     onClick={() => {
      handleReset();
      handlePause();
      setUsedTime(timer)
+     // setFinishTime(CURRENT TIME)
    PostData();
     
       
