@@ -26,16 +26,16 @@ const element = <FontAwesomeIcon icon={faClock} />
 
 const Table  = ({number}) => {
 
-    
+  var today = new Date();
   const { timer, isActive, isPaused, checkOutTime, handleStart, handlePause, handleResume, handleReset,  } = useTimer(0);
-    const [checkInTime, setCheckinTime] = useState("00:00:00")
-    const [finishTime, setFinishTime] = useState("00:00:00")
+    
+    const [startTime, setStartTime] = useState("00:00:00") // capture what time started 
     const [usedTime, setUsedTime] = useState(timer)
     const [rate, setRate] = useState("16000")
     const tableType = "Pool Table" ;
       
     function PostData  ()  {
-      console.log(checkInTime,finishTime, usedTime,rate,tableType);// MVP
+    console.log(startTime,usedTime,rate,tableType);// MVP
     }   
 
   
@@ -58,7 +58,7 @@ const Table  = ({number}) => {
       </Typography>
       <Typography variant="body1">
       
-      Checked in :  {checkInTime}
+      Checked in :  {startTime}
       </Typography>
       <Typography variant="body1">
       <p>Timer : {formatTime(timer)}</p>
@@ -73,8 +73,8 @@ const Table  = ({number}) => {
     <Button variant="outlined" size="small" 
     ///// CHECK IN FUNCTION
     onClick={() => {
-      handleStart()
-       /// Set start time here
+    handleStart()
+      /// Set start time here
     }}
     >Check In</Button>
 
@@ -84,8 +84,8 @@ const Table  = ({number}) => {
      handleReset();
      handlePause();
      setUsedTime(timer)
-    /// Set finish time here
-       PostData();
+     /// Set finish time here
+    PostData();
     
       
     }}
