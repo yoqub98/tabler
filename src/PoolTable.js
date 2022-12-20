@@ -34,6 +34,8 @@ const Table  = ({number}) => {
     const [rate, setRate] = useState("16000")
     const tableType = "Pool Table" ;
       
+    function PostData  (timer)  {
+      console.log(timer,rate,tableType);
     function PostData  ()  {
     console.log(startTime,usedTime,rate,tableType);// MVP
     }   
@@ -84,6 +86,7 @@ const Table  = ({number}) => {
      handleReset();
      handlePause();
      setUsedTime(timer)
+     PostData(timer);
      /// Set finish time here
     PostData();
     
