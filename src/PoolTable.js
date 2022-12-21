@@ -5,18 +5,25 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faClock } from '@fortawesome/free-regular-svg-icons'
 import useTimer from './UseTimer';
 import { formatTime } from './Utils';
 
+import firebase from 'firebase';
 
 
 
+ // Your web app's Firebase configuration
+ const firebaseConfig = {
+  apiKey: "AIzaSyBsZh12ElY0uNfEdVwkLkYiFfcxSQ7GDPU",
+  authDomain: "tabler-a8de2.firebaseapp.com",
+  projectId: "tabler-a8de2",
+  storageBucket: "tabler-a8de2.appspot.com",
+  messagingSenderId: "793771079245",
+  appId: "1:793771079245:web:522e27636f281e08730e04"
+};
 
-
-
-const element = <FontAwesomeIcon icon={faClock} />
+firebase.initializeApp(firebaseConfig);
+var db = firebase.firestore();
 
 
 
@@ -30,18 +37,31 @@ const Table  = ({number}) => {
   const { timer, isActive, isPaused, checkOutTime, handleStart, handlePause, handleResume, handleReset,  } = useTimer(0);
     
     const [startTime, setStartTime] = useState("00:00:00") // capture what time started 
-    const [usedTime, setUsedTime] = useState(timer)
     const [rate, setRate] = useState("16000")
     const tableType = "Pool Table" ;
       
-    function PostData  (timer)  {
-      console.log(timer,rate,tableType);
-    function PostData  ()  {
-    console.log(startTime,usedTime,rate,tableType);// MVP
-    }   
 
-  
+    
  
+
+    
+    
+    async function handlePost (tableTypeFB, finishTimeFB,  table_numberFB, usedTimeFB, startTimeFB, rateFB,) {
+      var today = new Date(),
+      current_time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
+      const data = {
+        table_number : table_numberFB,
+        table_type : tableTypeFB,
+        checked_in: startTimeFB,
+        checked_out: current_time,
+        used_time: usedTimeFB,
+        rate : rateFB,
+        
+      };
+      const res = await db.collection('pool_table_orders').add(data, {merge:true});
+    }
+   
+   
 
  
 
@@ -63,9 +83,8 @@ const Table  = ({number}) => {
       Checked in :  {startTime}
       </Typography>
       <Typography variant="body1">
-      <p>Timer : {formatTime(timer)}</p>
-        <br />
-      Checked out :  {formatTime(checkOutTime)}
+      Timer : {formatTime(timer)}
+     
       </Typography>
     </CardContent>
     <CardActions>
@@ -85,10 +104,8 @@ const Table  = ({number}) => {
     onClick={() => {
      handleReset();
      handlePause();
-     setUsedTime(timer)
-     PostData(timer);
-     /// Set finish time here
-    PostData();
+     handlePost (tableType, formatTime(checkOutTime),  number, formatTime(timer), startTime, rate,)
+     
     
       
     }}
@@ -96,12 +113,13 @@ const Table  = ({number}) => {
              
     </CardActions>
   </React.Fragment>
-);
+)
   }
-export default function PoolTable({number}) {
-  return (
-    <Box sx={{ minWidth: 275 }}>
-      <Table number = {number}   variant="outlined">{Table({number})}</Table>
-    </Box>
-  );
-}
+  export default function PoolTable({number}) {
+    return (
+      <Box sx={{ minWidth: 275 }}>
+        <Table number = {number}   variant="outlined">{Table({number})}</Table>
+      </Box>
+    );
+  }
+  
