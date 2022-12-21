@@ -46,7 +46,7 @@ const Table  = ({number}) => {
 
     
     
-    async function handlePost (tableTypeFB, finishTimeFB,  table_numberFB, usedTimeFB, startTimeFB, rateFB,) {
+    async function handlePost (tableTypeFB, table_numberFB, usedTimeFB, startTimeFB, rateFB,) {
       var today = new Date(),
       current_time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
       const data = {
@@ -104,7 +104,7 @@ const Table  = ({number}) => {
     onClick={() => {
      handleReset();
      handlePause();
-     handlePost (tableType, formatTime(checkOutTime),  number, formatTime(timer), startTime, rate,)
+     handlePost (tableType, number, formatTime(timer), startTime, rate)
      
     
       
