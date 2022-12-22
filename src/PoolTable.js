@@ -38,7 +38,7 @@ const Table  = ({number}) => {
     
     const [startTime, setStartTime] = useState("00:00:00") // capture what time started 
     const [rate, setRate] = useState("16000")
-    const tableType = "Pool Table" ;
+    const total_Pay = 1;
       
 
     
@@ -46,18 +46,19 @@ const Table  = ({number}) => {
 
     
     
-    async function handlePost (tableTypeFB, table_numberFB, usedTimeFB, startTimeFB, rateFB,) {
+    async function handlePost (table_numberFB, usedTimeFB, startTimeFB, rateFB,) {
       var today = new Date(),
       current_time = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
       const data = {
         table_number : table_numberFB,
-        table_type : tableTypeFB,
+        total_pay : Number.parseFloat((Number(usedTimeFB)/60)*(Number(rate)/60).toFixed(1)),
         checked_in: startTimeFB,
         checked_out: current_time,
-        used_time: usedTimeFB,
+        used_time: formatTime (usedTimeFB),
         rate : rateFB,
         
       };
+      console.log(Number.parseFloat((Number(usedTimeFB)/60)*(Number(rate)/60).toFixed(1)))
       const res = await db.collection('pool_table_orders').add(data, {merge:true});
     }
    
@@ -73,7 +74,7 @@ const Table  = ({number}) => {
     Table number :  {number}
       </Typography>
       <Typography variant="h4" component="div">
-      {tableType}
+      Pool Table
       </Typography>
       <Typography sx={{ mb: 1.5 }} color="text.secondary">
      Rate : {rate}
@@ -104,7 +105,7 @@ const Table  = ({number}) => {
     onClick={() => {
      handleReset();
      handlePause();
-     handlePost (tableType, number, formatTime(timer), startTime, rate)
+     handlePost (number, timer, startTime, rate)
      
     
       
