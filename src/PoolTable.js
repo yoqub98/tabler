@@ -96,6 +96,8 @@ const Table  = ({number}) => {
     ///// CHECK IN FUNCTION
     onClick={() => {
     handleStart()
+    var today = new Date(),
+    setStartTime = today.getHours() + ':' + today.getMinutes() + ':' + today.getSeconds();
       /// Set start time here
     }}
     >Check In</Button>
