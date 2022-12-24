@@ -1,8 +1,34 @@
-import React, { useState, useRef } from 'react';
+import React, { useState,  useRef } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import { Button, Dropdown, Stack } from 'react-bootstrap';
-const [testItem, setTestItem] = useState
+import { Button, ListGroup, Dropdown, Stack } from 'react-bootstrap';
+
+
+
 function BarPopUp(props) {
+  const [toggle, SetToggle] = useState(false);
+  const [testItem2, setTestItem2] = useState("Not selected");
+
+
+const Toggle_select = (eventkey, event) => {
+
+SetToggle(true) ;
+RenderItems (eventkey);
+
+}
+
+const RenderItems = (item) => {
+  if (toggle) {
+return (
+   <ListGroup.Item>{item}</ListGroup.Item> 
+   );
+}
+else {
+  return (
+    <ListGroup.Item>{"Not selected"}</ListGroup.Item> 
+  )
+}
+}
+
     return (
       <Modal
         {...props}
@@ -16,16 +42,20 @@ function BarPopUp(props) {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
+        <ListGroup variant="flush">
+          <RenderItems/>
+          </ListGroup>
         <Dropdown className="d-inline mx-2">
         <Dropdown.Toggle id="dropdown-autoclose-true">
           Default Dropdown
+
         </Dropdown.Toggle>
 
         <Dropdown.Menu>
             
-          <Dropdown.Item href="#" >Menu Item</Dropdown.Item>
-          <Dropdown.Item href="#">Menu Item</Dropdown.Item>
-          <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+          <Dropdown.Item  onSelect={Toggle_select} eventKey={"Cola"} href="#" >Cola</Dropdown.Item>
+          <Dropdown.Item   onSelect={Toggle_select} eventKey={"Fanta"} href="#">Fanta</Dropdown.Item>
+          <Dropdown.Item   onSelect={Toggle_select} eventKey={"Pepsi"}  href="#">Pepsi</Dropdown.Item>
         </Dropdown.Menu>
       </Dropdown>  
          
