@@ -4,7 +4,7 @@ import Card from 'react-bootstrap/Card';
 import { Button } from 'react-bootstrap';
 import useTimer from './UseTimer';
 import { formatTime } from './Utils';
-import MyVerticallyCenteredModal from './Bar'
+import BarPopUp from './Bar'
 import firebase from 'firebase';
 import {ListGroup} from 'react-bootstrap';
 import {Stack} from 'react-bootstrap';
@@ -101,7 +101,7 @@ const Table  = ({number}) => {
         
         </Card.Body>
       </Card>
-       <MyVerticallyCenteredModal
+       <BarPopUp
        show={modalShow}
        onHide={() => setModalShow(false)}
      />

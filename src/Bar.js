@@ -1,8 +1,8 @@
 import React, { useState, useRef } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import { Button } from 'react-bootstrap';
-
-function MyVerticallyCenteredModal(props) {
+import { Button, Dropdown, Stack } from 'react-bootstrap';
+const [testItem, setTestItem] = useState
+function BarPopUp(props) {
     return (
       <Modal
         {...props}
@@ -12,16 +12,23 @@ function MyVerticallyCenteredModal(props) {
       >
         <Modal.Header closeButton>
           <Modal.Title id="contained-modal-title-vcenter">
-            Modal heading
+            BAR Order
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <h4>Centered Modal</h4>
-          <p>
-            Cras mattis consectetur purus sit amet fermentum. Cras justo odio,
-            dapibus ac facilisis in, egestas eget quam. Morbi leo risus, porta ac
-            consectetur ac, vestibulum at eros.
-          </p>
+        <Dropdown className="d-inline mx-2">
+        <Dropdown.Toggle id="dropdown-autoclose-true">
+          Default Dropdown
+        </Dropdown.Toggle>
+
+        <Dropdown.Menu>
+            
+          <Dropdown.Item href="#" >Menu Item</Dropdown.Item>
+          <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+          <Dropdown.Item href="#">Menu Item</Dropdown.Item>
+        </Dropdown.Menu>
+      </Dropdown>  
+         
         </Modal.Body>
         <Modal.Footer>
           <Button onClick={props.onHide}>Close</Button>
@@ -30,4 +37,4 @@ function MyVerticallyCenteredModal(props) {
     );
   }
 
-export default MyVerticallyCenteredModal ;
+export default BarPopUp ;
