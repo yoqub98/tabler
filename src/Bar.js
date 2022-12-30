@@ -1,33 +1,55 @@
 import React, { useState,  useRef } from 'react';
 import Modal from 'react-bootstrap/Modal';
-import { Button, ListGroup, Dropdown, Stack } from 'react-bootstrap';
+import { Button, ListGroup, Dropdown, Stack, DropdownButton, ListGroupItem } from 'react-bootstrap';
 
 
 
 function BarPopUp(props) {
-  const [toggle, SetToggle] = useState(false);
-  const [testItem2, setTestItem2] = useState("Not selected");
+  
+
+  const [orderlist, setOrderList] = useState([]);
+  const [orderItem, setsetOrderItem] = useState("");
 
 
-const Toggle_select = (eventkey, event) => {
+const addToList = (eventKey) => {
+  setsetOrderItem(eventKey);
+  let tempArr = orderlist;
 
-SetToggle(true) ;
-RenderItems (eventkey);
+  tempArr.push(orderItem);
 
-}
+  setOrderList(tempArr);
 
-const RenderItems = (item) => {
-  if (toggle) {
-return (
-   <ListGroup.Item>{item}</ListGroup.Item> 
-   );
-}
-else {
+  setsetOrderItem("");
+  RenderItems(orderlist);
+
+};
+
+
+
+
+function getsign(eventKey){
+   
+    console.log('events :', eventKey);
+
+    addToList(eventKey)
+
+    }
+
+
+function RenderItems  (orderlist)  {
+  if (orderlist.length === 0 ) 
   return (
-    <ListGroup.Item>{"Not selected"}</ListGroup.Item> 
+    "Error"
   )
+  else {
+return (
+  <ListGroup>{orderlist.length > 0 && orderlist.map((item) => <ListGroupItem eventKey={item}>{item} </ListGroupItem>)}</ListGroup>
+)
 }
-}
+   
+
+ }
+
 
     return (
       <Modal
@@ -42,21 +64,19 @@ else {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-        <ListGroup variant="flush">
+        
           <RenderItems/>
-          </ListGroup>
+       
         <Dropdown className="d-inline mx-2">
-        <Dropdown.Toggle id="dropdown-autoclose-true">
-          Default Dropdown
+        
 
-        </Dropdown.Toggle>
+        
+        <DropdownButton title="Select item" id="dropdown-basic-button" onSelect={getsign} >
+          <Dropdown.Item   eventKey="Coca-Cola" >Cola</Dropdown.Item>
+          <Dropdown.Item  eventKey="Pepsi" >Pepsi</Dropdown.Item>
+          <Dropdown.Item   eventKey="Fanta" >Fanta</Dropdown.Item>
+          </DropdownButton>
 
-        <Dropdown.Menu>
-            
-          <Dropdown.Item  onSelect={Toggle_select} eventKey={"Cola"} href="#" >Cola</Dropdown.Item>
-          <Dropdown.Item   onSelect={Toggle_select} eventKey={"Fanta"} href="#">Fanta</Dropdown.Item>
-          <Dropdown.Item   onSelect={Toggle_select} eventKey={"Pepsi"}  href="#">Pepsi</Dropdown.Item>
-        </Dropdown.Menu>
       </Dropdown>  
          
         </Modal.Body>
