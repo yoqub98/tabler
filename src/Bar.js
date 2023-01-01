@@ -8,32 +8,43 @@ import { ListItem } from '@mui/material';
 function BarPopUp (props) {
 
 const [togglepress, setToggle] = useState(false)
-const [orderlist, setOrderList] = useState([]);
+const [orderlist, setOrderList] = useState({
+ cola : {
+  price : 8000,
+  quantity : 0,
+  total : 0
+ },
+ fanta : {
+  price : 7000,
+  quantity : 0,
+  total : 0
+ },
+});
 
 
 function getsign(eventKey){
-  orderlist.push(eventKey);
-  setToggle(true);
-  RenderItems(orderlist)
+  const itemname = eventKey;
+
+ console.log(orderlist[itemname])
+  //orderlist[eventKey].push(eventKey);
+  //setToggle(true);
+  //RenderItems(orderlist)
   }
 
 
 
 function RenderItems (list) {
-if (list.length > 0 ) {
-  console.log(list)
-    //const listItems = list.map(item =>
-        //<ListGroupItem key={item}>{item}</ListGroupItem>
-      
-      return (
 
-       <h1>Pressed</h1> 
-        
-      );
+  if (list.length > 0 || togglepress) {
+    
+ console.log( typeof(numbers) )
 }
-   else if (!togglepress) {
-     return ( <h1>Unpressed</h1> );
+else {
+  return (
+    <h2>No orders</h2>
+  )
 }
+;
 }
     
 
@@ -56,9 +67,9 @@ if (list.length > 0 ) {
 
         <Dropdown className="d-inline mx-2">
         <DropdownButton title="Select item" id="dropdown-basic-button" onSelect={getsign} >
-        <Dropdown.Item   eventKey="Coca-Cola" >Cola</Dropdown.Item>
-        <Dropdown.Item  eventKey="Pepsi" >Pepsi</Dropdown.Item>
-        <Dropdown.Item   eventKey="Fanta" >Fanta</Dropdown.Item>
+        <Dropdown.Item   eventKey="cola" >Cola</Dropdown.Item>
+        <Dropdown.Item  eventKey="pepsi" >Pepsi</Dropdown.Item>
+        <Dropdown.Item   eventKey="fanta" >Fanta</Dropdown.Item>
         </DropdownButton>
 
       </Dropdown>  
