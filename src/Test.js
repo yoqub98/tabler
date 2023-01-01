@@ -5,37 +5,42 @@ import { ListItem } from '@mui/material';
 
 
 
-function BarPopUp (props) {
-
+function Test (props) {
+  
 const [togglepress, setToggle] = useState(false)
 const [orderlist, setOrderList] = useState([]);
 
 
 function getsign(eventKey){
-  orderlist.push(eventKey);
-  setToggle(true);
-  RenderItems(orderlist)
+ addToList(eventKey)
   }
 
 
+const addToList = (eventKey) => {
+
+orderlist.push(eventKey);
+setToggle(true);
+console.log(orderlist) // testing
+};
 
 function RenderItems (list) {
-if (list.length > 0 ) {
-  console.log(list)
-    //const listItems = list.map(item =>
-        //<ListGroupItem key={item}>{item}</ListGroupItem>
-      
-      return (
-
-       <h1>Pressed</h1> 
-        
+if (togglepress && list.length > 0 ) {
+    const listItems = list.map(item =>
+        <ListGroupItem key={item}>{item}</ListGroupItem>
       );
+      return (
+      <Container>
+       <h1>Pressed</h1> 
+        <ListGroup>{listItems}</ListGroup>
+      </Container>);
 }
    else if (!togglepress) {
      return ( <h1>Unpressed</h1> );
 }
 }
     
+
+
 
 
     return (
@@ -54,6 +59,8 @@ if (list.length > 0 ) {
         
       <RenderItems/>
 
+     
+       
         <Dropdown className="d-inline mx-2">
         <DropdownButton title="Select item" id="dropdown-basic-button" onSelect={getsign} >
         <Dropdown.Item   eventKey="Coca-Cola" >Cola</Dropdown.Item>
@@ -71,4 +78,4 @@ if (list.length > 0 ) {
     );
   }
 
-export default BarPopUp ;
+export default Test ;
